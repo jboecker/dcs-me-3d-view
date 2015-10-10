@@ -12,7 +12,6 @@ do
 	local socket = require("socket")
 
 	function me_3dview.group_update(groupInfo)
-		local dcs15prefixes = {"ATGM ","IFV ","MBT ","AAA ","Transport ","SPAAA ","SAM ","APC "}
 		local groupName = "gn_"..tostring(groupInfo.groupId)
 
 		local unitsTable = {
@@ -27,7 +26,6 @@ do
 		}
 
 		for _, u in pairs(groupInfo.units) do
-			for _, p in pairs(dcs15prefixes) do u.type = u.type:gsub("^"..p, "") end
 			unitsTable.units[#unitsTable.units+1] = {
 				["y"] = u.y,
 				["type"] = u.type,

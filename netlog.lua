@@ -3,6 +3,8 @@ local require = base.require
 
 module("netlog")
 
+local me_db = require("me_db_api")
+
 local DST_HOST = "localhost"
 local DST_PORT = 46587
 
@@ -20,7 +22,7 @@ function groupupdate(group)
 	if group and group.units then
 		local units = {}
 		for _, u in base.pairs(group.units) do
-			units[#units+1] = {type=u.type, x=u.x, y=u.y, heading=u.heading, unitId=u.unitId}
+			units[#units+1] = {type=me_db.getNameByDisplayName(u.type), x=u.x, y=u.y, heading=u.heading, unitId=u.unitId}
 		end
 		netlog({action="group_update", groupId=group.groupId, units=units, category=group.category})
 	end
