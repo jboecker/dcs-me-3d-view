@@ -1,6 +1,8 @@
-# A 3D View for the DCS: World 1.5 Mission Editor
+# A 3D View for the DCS: World Mission Editor
 
 This is a quick and dirty hack in its very early stages. A small modification to the DCS 1.5 Open Beta Mission Editor will send a UDP packet whenever a group is modified. A mission running in a second instance of DCS: World will read that UDP packet and spawn that group into the mission, where you can look at it with the free-roam camera to determine where the unit ends up.
+
+**Note: This README describes how to set things up for the 1.5 Open Beta. If you want to set it up in 1.2.x, read the "Differences in 1.2.x" section at the end before you start.**
 
 ### You need:
 
@@ -62,6 +64,21 @@ A lot. This is only a very early prototype / proof of concept. That said, it is 
   * set the graphics options on your "viewer install" to the lowest settings to keep things somewhat sane
   * you probably want to set up both versions of DCS so that they use windowed mode with a resolution that is smaller than your monitor. That way, you get two normal windows that you can drag around and easily place side by side or on different monitors.
   * Running both versions of DCS in parallel works on my machine with 8 GB of RAM, but of course more is better here
+
+### Differences in 1.2.x
+
+* If running mission editor and 3D viewer on the same computer, you do not need a separate installation of DCS. Because the Mission Editor is part of Launcher.exe in v1.2.x, you never need to start two instances of DCS.exe.
+* use `me-3d-view-dcs1.2.x.miz` instead of me-3d-view.miz
+* When editing `MissionEditor.lua`, insert the line of code before the `Gui.run()` part, so the end of the file looks like this:
+````lua
+local netlog = require("netlog"); netlog.hook_all()
+
+if not __EMBEDDED__ then
+    Gui.Run()
+end
+
+writeLog()
+````
 
 ### Thanks
 
